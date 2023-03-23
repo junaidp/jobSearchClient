@@ -1,10 +1,9 @@
 Here is the documentation of the app till now we have only one page Grid where we have the HospitalName their location and the url
 
 First run npm install to install all the packeges we are using 
-Second run npm run dev
-Then the app will start on the IP/Port http://127.0.0.1:5173 here you can see the app running
+Second run npm start
+Then the app will start on the IP/Port localhost:3000
 
-Note: This is using the Vite Js Configuration to make the React app light weight and Optomized
 
 Note: all the files named at the end .css are for the styling purposes and index.css file means that we are putting all the css of the parent folder of the index.css 
 
