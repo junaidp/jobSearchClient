@@ -1,0 +1,399 @@
+/* The Entire CSS Of the Grid Components is here */
+
+/* Google Font Import  */
+
+@import url("https://fonts.googleapis.com/css2?family=Alkalami&family=Cedarville+Cursive&family=Cormorant+Garamond:wght@300&family=Handlee&family=Nunito:wght@200&family=Open+Sans:wght@300&family=Oswald&family=Roboto+Mono:wght@300&family=Roboto+Slab&family=Roboto:wght@300;400&family=Rubik+Bubbles&display=swap");
+
+/* For the Grid.jsx in the pages*/
+
+.gridMain {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 15px rgba(58, 96, 110, 0.15);
+  padding: 20px;
+}
+
+/* For the TableHeader.jsx */
+
+label {
+  display: flex;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+input {
+  width: 100%;
+  border-radius: 4px;
+  padding: 16px;
+  padding-right: 40px;
+  font-size: 16px;
+  height: 20px;
+  animation-name: activeInput;
+  animation-duration: 1s;
+}
+
+@keyframes activeInput {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+#icon {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.box {
+  max-width: 400px;
+  width: 100%;
+}
+.box .search-box {
+  position: relative;
+  height: 50px;
+  max-width: 50px;
+  margin: auto;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+#check:checked ~ .search-box {
+  max-width: 380px;
+}
+.search-box input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 25px;
+  background: #fff;
+  outline: none;
+  border: none;
+  padding-left: 20px;
+  font-size: 18px;
+}
+.search-box .icon {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  width: 50px;
+  background: #fff;
+  height: 100%;
+  text-align: center;
+  line-height: 50px;
+  color: #ff676d;
+  font-size: 20px;
+  border-radius: 25px;
+}
+#check:checked ~ .search-box .icon {
+  background: #ff676d;
+  color: #fff;
+  width: 60px;
+  border-radius: 0 25px 25px 0;
+}
+#check {
+  display: none;
+}
+
+.headersMain {
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.headersMain a {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #1c3035;
+  font-family: "Nunito", sans-serif;
+}
+
+.headersIcons {
+  display: flex;
+  gap: 30px;
+}
+
+.headerSearch,
+.headerMenu {
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.gridHeadSingle a {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .gridMain {
+    width: 90%;
+  }
+}
+
+
+
+@media screen and (max-width: 400px) {
+  .gridMain {
+    width: 95%;
+  }
+}
+
+/* Fot the TableMain.jsx */
+
+.gridHead a {
+  color: #152428;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.gridHead {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "ht ht hos hl hu hu hlast";
+  gap: 10px;
+}
+
+
+/* Grid Areas of Head */
+.headTitle{
+  grid-area: ht;
+}
+
+.headHospitalName{
+  grid-area: hos;
+}
+
+.headLocation{
+  grid-area: hl;
+}
+
+/* .headDescription{
+  grid-area: hd;
+} */
+
+.headUrl{
+   grid-area: hu;
+}
+
+.headLastSeen{
+   grid-area: hlast;
+}
+
+
+.gridBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "t t hos l  u u last";
+  gap: 2rem;
+}
+
+/*  */
+/* The Grid Area */
+ .firstColumn{
+  grid-area: t;
+}
+
+.hospitalNameColumn{
+  grid-area: hos;
+}
+.locationColumn{
+  grid-area: l;
+}
+/* .descriptionColumn{
+  grid-area: d;
+} */
+.jobsUrl{
+  grid-area: u;
+}
+.lastSeenData{
+  grid-area: last;
+} 
+
+/*  */
+.gridBody * {
+  flex: 1;
+}
+
+.firstColumn {
+  display: flex;
+  align-items: center;
+}
+
+.headLine {
+  width: 100%;
+  height: 2px;
+  background-color: #3a606e;
+  margin: 15px 0px;
+}
+.RowsLine {
+  width: 100%;
+  height: 2px;
+  background-color: #eff1f1;
+  margin: 6px 0px;
+}
+
+.gridHeadIcons {
+  display: flex;
+  flex-direction: column;
+}
+.gridHeadSingle {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.IconUp,
+.IconDown {
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.jobsUrl{
+  cursor: pointer;
+}
+
+.jobsUrl:hover{
+  color: blue;
+  text-decoration: underline;
+}
+
+.lastSeenData a{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lastSeen{
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 700px) {
+  .RowsLine {
+    width: 100%;
+  }
+}
+
+/* The Table TableFooter.jsx */
+.tableFooterMain {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.tableFooterMain p {
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  font-weight: 14px;
+  line-height: 14px;
+}
+
+.tableFooterMain p span{
+  /* color: rgb(205, 242, 228); */
+  text-decoration: underline;
+  color: blue;
+}
+
+.FormSelect {
+  padding: 7px;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #152428;
+  font-family: "Nunito", sans-serif;
+  width: 140px;
+}
+
+.pageInput {
+  border: 1px solid #3a606e;
+  padding: 5px;
+  width: 70px;
+  border-radius: 6px;
+}
+
+.pageInputMain {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pageInputMain p {
+  margin-top: 30px;
+}
+
+/* The Responsive Ness Of the table */
+
+.jobsUrl,.firstColumn,.hospitalNameColumn,.locationColumn{
+  /* display: flex; */
+  /* width: 100%; */
+  /* inline-size: 150px; */
+  /* color: red; */
+  /* overflow-wrap: break-word; */
+  word-break: break-all;
+}
+
+@media screen and (max-width: 800px) {
+  .gridBody a {
+    font-size: 14px;
+  }
+  .jobsHeading{
+    display: none;
+  }
+ 
+}
+
+
+@media screen and (max-width: 900px) {
+  .gridMain {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .gridBody a {
+    font-size: 12px;
+  }
+ 
+}
+
+@media screen and (max-width: 500px) {
+  .gridBody a {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .locationColumn,
+  .descriptionColumn {
+    display: none;
+  }
+  .headLocation,.headDescription{
+    display: none;
+  }
+  .gridBody {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "t t hos u u last";
+  }
+  .gridHead {
+    grid-template-areas: "ht ht hos  hu hu hlast";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+
+/* @media screen and (max-width:700px) {
+  .model{
+    width: 80%;
+  }
+} */
