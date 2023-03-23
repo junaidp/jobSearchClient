@@ -16,8 +16,7 @@ let initialState = {
   locationSort: false,
   dateSort:false,
   withOutFilterData:[],
-  hospital:false
-  // open:JSON.parse(localStorage.getItem("open")) || true
+  hospitalSort:false
 };
 
 const userSlice = createSlice({
@@ -30,9 +29,6 @@ const userSlice = createSlice({
     clearSearch: (state) => {
       state.search = "";
     },
-    // changeOpen:(state)=>{
-    //    localStorage.setItem("open",false)
-    // },
     handleSelectPage: (state, action) => {
       state.selectPage = action.payload.page;
       state.paginationPage = 1;
@@ -99,8 +95,8 @@ const userSlice = createSlice({
     handleLocationSort: (state) => {
       if (state.locationSort) {
         state.data = state.data.sort(function (a, b) {
-          var textA = a.description.toUpperCase();
-          var textB = b.description.toUpperCase();
+          var textA = a.location.toUpperCase();
+          var textB = b.location.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
@@ -115,7 +111,7 @@ const userSlice = createSlice({
 
 
     handleHospitalNameSort: (state) => {
-      if (state.hospital) {
+      if (state.hospitalSort) {
         state.data = state.data.sort(function (a, b) {
           var textA = a?.hospitalName.toUpperCase() || "";
           var textB = b?.hospitalName.toUpperCase() || "";
@@ -128,7 +124,7 @@ const userSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.hospital = !state.hospital
+      state.hospitalSort= !state.hospitalSort
     },
 
     // The Below Sorting Logic is Not Working for the Chrome
@@ -165,7 +161,6 @@ export const {
   clearSearch,
   handleDateSort,
   handleHospitalNameSort
-  // changeOpen
 } = userSlice.actions;
 
 export default userSlice.reducer;

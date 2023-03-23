@@ -1,4 +1,4 @@
-// This is the last part of the grid where we have the pagination stuff 
+// This is the last part of the grid where we have the pagination stuff
 // The Pagination and the dropdown and the Go to Page Feature
 
 import React from "react";
@@ -48,7 +48,7 @@ const GridFooter = () => {
   return (
     <div className="tableFooterMain">
       <p>
-        Showing   Page{paginationPage} / {totalPages}  with {data.length}  entries
+        Showing Page{paginationPage} / {totalPages} with {data.length} entries
       </p>
       <div>
         <PaginationMain />

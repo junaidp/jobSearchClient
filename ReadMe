@@ -1,4 +1,4 @@
-Here is the documentation of the app till now we have only one page Grid where we have the users Data and and their tasks and the date 
+Here is the documentation of the app till now we have only one page Grid where we have the HospitalName their location and the url
 
 First run npm install to install all the packeges we are using 
 Second run npm run dev

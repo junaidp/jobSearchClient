@@ -1,4 +1,4 @@
-// This is the main part of the grid where we have the List of the Users with their task and date stuff and is using the data.js to take the dummy data
+// This is the main part of the grid where we have the List of the Hoptipal with their title and date stuff we have the location and url hospitalName and the title for the hospital data
 
 import React from "react";
 import { AiFillCaretDown } from "react-icons/ai";
@@ -12,7 +12,7 @@ import {
   handleLocationSort,
   handleTitleSort,
   handleDateSort,
-  handleHospitalNameSort
+  handleHospitalNameSort,
 } from "../../features/pageSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import moment from "moment/moment";
@@ -34,7 +34,7 @@ const GridMain = () => {
     );
   }, [selectPage]);
 
-  // TFetching Data from the data base
+  // Fetching Data from the data base
   React.useEffect(() => {
     let start = async () => {
       try {
@@ -62,16 +62,14 @@ const GridMain = () => {
   }
 
   // The Searching Logic
-  // This will for any of the in this way like you search for "wan" and then it will look in the title,description and location tables and come with the row that include the "wan"  keyword
-  const keys = ["title", "location", "url","hospitalName"];
+  // This will for any of the in this way like you search for "wan" and then it will look in the title,description and location and hospitalName tables and come with the row that include the "wan"  keyword
+  const keys = ["title", "location", "url", "hospitalName"];
 
   return (
     <div className="TableDataMain">
       <div>
         {/* Here Starts / This is the main heading of the title,description,url,date,location... */}
         <div className="gridHead">
-
-
           <div
             className="gridHeadSingle headTitle"
             onClick={() => dispatch(handleTitleSort())}
@@ -83,7 +81,6 @@ const GridMain = () => {
             </div>
           </div>
 
-
           <div
             className="gridHeadSingle headHospitalName"
             onClick={() => dispatch(handleHospitalNameSort())}
@@ -94,8 +91,6 @@ const GridMain = () => {
               <AiFillCaretDown className="IconDown" />
             </div>
           </div>
-
-
 
           <div
             className="gridHeadSingle  headLocation"
@@ -157,7 +152,9 @@ const GridMain = () => {
                     {/* Hospital Name Column */}
                     <div className="hospitalNameColumn">
                       <Highlighter searchText={search}>
-                        {row?.hospitalName?row?.hospitalName:"No Name Provided"}
+                        {row?.hospitalName
+                          ? row?.hospitalName
+                          : "No Name Provided"}
                       </Highlighter>
                     </div>
                     {/*  */}
@@ -167,14 +164,6 @@ const GridMain = () => {
                         {row?.location}
                       </Highlighter>
                     </div>
-                    {/*  */}
-                    {/*  */}
-                    {/* This is the description column that  is removed */}
-                    {/* <div className="descriptionColumn">
-                      <Highlighter searchText={search}>
-                        {row?.description.slice(0, 100)}
-                      </Highlighter>...
-                    </div> */}
                     {/*  */}
                     {/*  */}
                     <div
