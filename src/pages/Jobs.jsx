@@ -1,11 +1,11 @@
 // This is the Entire Grid for the user Data and using the components of the GridComponents in components/GridComponents
 
 import React from "react";
-import GridHeaders from "../components/GridComponents/GridHeader";
-import GridMain from "../components/GridComponents/GridMain";
-import GrifFooter from "../components/GridComponents/GridFooter";
-import "../components/GridComponents/index.css";
-import PopUp from "../components/GridComponents/PopUp"
+import GridHeaders from "../components/JobsComponents/GridHeader";
+import GridMain from "../components/JobsComponents/GridMain";
+import GrifFooter from "../components/JobsComponents/GridFooter";
+import "../components/JobsComponents/index.css";
+import PopUp from "../components/JobsComponents/PopUp"
 
 const Grid = () => {
   return (

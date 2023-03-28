@@ -1,14 +1,14 @@
-// This is the last part of the grid where we have the pagination stuff
-// The Pagination and the dropdown and the Go to Page Feature
+// This is the last part of the stats where we have the pagination stuff
+// The Pagination and the dropdown and the Go to Page Feature is here
 
 import React from "react";
 import FormRowSelect from "./FormRowSelect";
 import PaginationMain from "./PaginationMain";
 import {
-  handleInputPage,
-  handleSelectPage,
-  handleInputForm,
-} from "../../features/pageSlice";
+  handleInputPageStats,
+  handleSelectPageStats,
+  handleInputFormStats,
+} from "../../features/statsSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const GridFooter = () => {
@@ -18,7 +18,8 @@ const GridFooter = () => {
     paginationPage,
     totalPages,
     data,
-  } = useSelector((store) => store.store);
+  } = useSelector((store) => store.stats);
+
   let [selectPage, setSelectPage] = React.useState(rowPerPage);
 
   function handleChangeSelect(e) {
@@ -27,7 +28,7 @@ const GridFooter = () => {
 
   function submitInput(event) {
     event.preventDefault();
-    dispatch(handleInputForm());
+    dispatch(handleInputFormStats());
   }
 
   let [InputPage, setInputPage] = React.useState(1);
@@ -36,11 +37,11 @@ const GridFooter = () => {
   }
 
   React.useEffect(() => {
-    dispatch(handleSelectPage({ page: selectPage }));
+    dispatch(handleSelectPageStats({ page: selectPage }));
   }, [selectPage]);
 
   React.useEffect(() => {
-    dispatch(handleInputPage({ page: InputPage }));
+    dispatch(handleInputPageStats({ page: InputPage }));
   }, [InputPage]);
 
   let list = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];

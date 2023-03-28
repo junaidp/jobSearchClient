@@ -1,3 +1,3 @@
 import Tabs from "./Tabs"
-import Grid from "./Grid"
-export {Tabs,Grid}
+import Jobs from "./Jobs"
+export {Tabs,Jobs}

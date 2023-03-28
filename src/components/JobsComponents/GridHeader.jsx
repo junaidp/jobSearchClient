@@ -1,14 +1,14 @@
 // This is the First part of the Grid and and the header part
 
 import React from "react";
-import { handleSearch } from "../../features/pageSlice";
+import { handleSearch } from "../../features/jobsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 
 const GridHeader = () => {
-  let { search } = useSelector((state) => state.store);
-  let { withOutFilterData } = useSelector((state) => state.store);
+  let { search } = useSelector((state) => state.jobs);
+  let { withOutFilterData } = useSelector((state) => state.jobs);
   let dispatch = useDispatch();
 
   const fileType =

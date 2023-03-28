@@ -9,7 +9,7 @@
 .gridMain {
   margin-left: 50%;
   transform: translateX(-50%);
-  width: 90%;
+  width: 95%;
   border-radius: 16px;
   background-color: #ffffff;
   box-shadow: 0px 4px 15px rgba(58, 96, 110, 0.15);
@@ -158,8 +158,8 @@ input {
 
 .gridHead {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: "ht ht hos hl hu hu hlast";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "id ht ht hos hl hu hu hlast";
   gap: 10px;
 }
 
@@ -167,6 +167,10 @@ input {
 /* Grid Areas of Head */
 .headTitle{
   grid-area: ht;
+}
+
+.headID{
+  grid-area: id;
 }
 
 .headHospitalName{
@@ -192,8 +196,8 @@ input {
 
 .gridBody {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-areas: "t t hos l  u u last";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "idCol t t hos l  u u last";
   gap: 2rem;
 }
 
@@ -201,6 +205,10 @@ input {
 /* The Grid Area */
  .firstColumn{
   grid-area: t;
+}
+
+.idColumn{
+  grid-area: idCol;
 }
 
 .hospitalNameColumn{
@@ -334,13 +342,18 @@ input {
 
 /* The Responsive Ness Of the table */
 
-.jobsUrl,.firstColumn,.hospitalNameColumn,.locationColumn{
+.jobsUrl,.firstColumn,.hospitalNameColumn,.locationColumn,.idColumn{
   /* display: flex; */
   /* width: 100%; */
   /* inline-size: 150px; */
   /* color: red; */
   /* overflow-wrap: break-word; */
   word-break: break-all;
+}
+
+.gridHeadSingle p{
+  cursor: pointer;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 800px) {
@@ -356,7 +369,7 @@ input {
 
 @media screen and (max-width: 900px) {
   .gridMain {
-    width: 95%;
+    width: 100%;
   }
 }
 
@@ -375,19 +388,22 @@ input {
 
 @media screen and (max-width: 800px) {
   .locationColumn,
-  .descriptionColumn {
+  .descriptionColumn,.headLocationJobs {
     display: none;
   }
-  .headLocation,.headDescription{
+  /* .headDescription{
     display: none;
-  }
+  } */
   .gridBody {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: "t t hos u u last";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "idCol t t hos u u last ";
   }
   .gridHead {
-    grid-template-areas: "ht ht hos  hu hu hlast";
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "id ht ht hos  hu hu hlast";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  #jobsLocationHeader{
+    display: none;
   }
 }
 

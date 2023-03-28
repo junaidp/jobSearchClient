@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import Pages from "../features/pageSlice";
+import Jobs from "../features/jobsSlice";
+import Stats from "../features/statsSlice"
 
 export const store = configureStore({
   reducer: {
-    store: Pages,
+    jobs: Jobs,
+    stats:Stats
   },
 });

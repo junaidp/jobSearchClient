@@ -13,7 +13,7 @@ import {
   handleTitleSort,
   handleDateSort,
   handleHospitalNameSort,
-} from "../../features/pageSlice";
+} from "../../features/jobsSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import moment from "moment/moment";
 
@@ -25,7 +25,7 @@ const GridMain = () => {
     selectPage,
     search,
     data: dummyData,
-  } = useSelector((state) => state.store);
+  } = useSelector((state) => state.jobs);
 
   // This UseEffect is to change the total Pages Logic
   React.useEffect(() => {
@@ -70,11 +70,21 @@ const GridMain = () => {
       <div>
         {/* Here Starts / This is the main heading of the title,description,url,date,location... */}
         <div className="gridHead">
+          {/*  */}
+          <div className="gridHeadSingle headID">
+            <p>ID</p>
+            <div className="gridHeadIcons">
+              <AiFillCaretUp className="IconUp" />
+              <AiFillCaretDown className="IconDown" />
+            </div>
+          </div>
+          {/*  */}
+
           <div
             className="gridHeadSingle headTitle"
             onClick={() => dispatch(handleTitleSort())}
           >
-            <a>Title</a>
+            <p>Title</p>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
               <AiFillCaretDown className="IconDown" />
@@ -85,7 +95,7 @@ const GridMain = () => {
             className="gridHeadSingle headHospitalName"
             onClick={() => dispatch(handleHospitalNameSort())}
           >
-            <a>Hospital Name</a>
+            <p>Hospital Name</p>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
               <AiFillCaretDown className="IconDown" />
@@ -93,10 +103,11 @@ const GridMain = () => {
           </div>
 
           <div
-            className="gridHeadSingle  headLocation"
+            className="gridHeadSingle  headLocationJobs"
             onClick={() => dispatch(handleLocationSort())}
+            id="jobsLocationHeader"
           >
-            <a>Location</a>
+            <p>Location</p>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
               <AiFillCaretDown className="IconDown" />
@@ -104,7 +115,7 @@ const GridMain = () => {
           </div>
 
           <div className="gridHeadSingle URL clientDate headUrl">
-            <a>Url</a>
+            <p>Url</p>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
               <AiFillCaretDown className="IconDown" />
@@ -115,7 +126,7 @@ const GridMain = () => {
             className="gridHeadSingle lastSeen headLastSeen"
             onClick={() => dispatch(handleDateSort())}
           >
-            <a>First Found</a>
+            <p>First Found</p>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
               <AiFillCaretDown className="IconDown" />
@@ -142,6 +153,11 @@ const GridMain = () => {
               return (
                 <div className="gridWrapper">
                   <div className=" gridBody">
+                    {/*  */}
+                    <div className="idColumn">
+                      <div>{row?.id}</div>
+                    </div>
+                    {/*  */}
                     {/*  */}
                     <div className="firstColumn">
                       <Highlighter searchText={search}>

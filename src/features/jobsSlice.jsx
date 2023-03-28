@@ -1,6 +1,6 @@
 // This is the Store to add the common data for the app and the store Entry Point is in the store/Store.jsx and the whole store in wrapped in the parent of the whole app which is main.jsx
 
-// Note: This Slice is only for the Grid
+// Note: This Slice is only for the Jobs
 
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -19,7 +19,7 @@ let initialState = {
   hospitalSort:false
 };
 
-const userSlice = createSlice({
+const jobsSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -136,6 +136,8 @@ const userSlice = createSlice({
     //   }
     //   state.locationSort = !state.locationSort;
     // },
+
+
     handleDateSort: (state) => {
       if (state.dateSort) {
         state.data = state.data.sort((a, b) => (new Date(a.addedDate)) - (new Date(b.addedDate)));
@@ -144,6 +146,8 @@ const userSlice = createSlice({
       }
       state.dateSort = !state.dateSort;
     },
+
+
   },
 });
 
@@ -161,6 +165,6 @@ export const {
   clearSearch,
   handleDateSort,
   handleHospitalNameSort
-} = userSlice.actions;
+} = jobsSlice.actions;
 
-export default userSlice.reducer;
+export default jobsSlice.reducer;
