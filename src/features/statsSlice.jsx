@@ -13,7 +13,11 @@ let initialState = {
   data: [],
   withOutFilterData:[],
   hospitalSort:false,
-  jobsSort:false
+  jobsSort:false,
+  locationSort:false,
+  errorNumSort:false,
+  notVacSort:false,
+
 };
 
 const userSlice = createSlice({
@@ -89,6 +93,63 @@ const userSlice = createSlice({
       state.jobsSort= !state.jobsSort
     },
 
+
+
+    handleJobsLocaionSortStats: (state) => {
+      if (state.locationSort) {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.location.toUpperCase() || "";
+          var textB = b?.location.toUpperCase() || "";
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        });
+      } else {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.location.toUpperCase() || "";
+          var textB = b?.location.toUpperCase() || "";
+          return textA < textB ? 1 : textA > textB ? -1 : 0;
+        });
+      }
+      state.locationSort= !state.locationSort
+    },
+
+
+    handleJobsErrorNumSortStats: (state) => {
+      if (state.errorNumSort) {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.errorNum || "";
+          var textB = b?.errorNum || "";
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        });
+      } else {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.errorNum || "";
+          var textB = b?.errorNum || "";
+          return textA < textB ? 1 : textA > textB ? -1 : 0;
+        });
+      }
+      state.errorNumSort= !state.errorNumSort
+    },
+
+
+    handleNotVacSortStats: (state) => {
+      if (state.notVacSort) {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.notVac || "";
+          var textB = b?.notVac || "";
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        });
+      } else {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.notVac || "";
+          var textB = b?.notVac || "";
+          return textA < textB ? 1 : textA > textB ? -1 : 0;
+        });
+      }
+      state.notVacSort= !state.notVacSort
+    },
+
+
+
   },
 });
 
@@ -102,7 +163,10 @@ export const {
   handleInputFormStats,
   clearSearch,
   handleHospitalNameSortStats,
-  handleJobsSortStats
+  handleJobsSortStats,
+  handleJobsLocaionSortStats,
+  handleJobsErrorNumSortStats,
+  handleNotVacSortStats
 } = userSlice.actions;
 
 export default userSlice.reducer;

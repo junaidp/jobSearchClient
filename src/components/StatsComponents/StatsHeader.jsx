@@ -21,7 +21,9 @@ const GridHeader = () => {
         HospitalName: items?.name,
         Jobs: items?.vac,
         Url: items?.url,
-      };
+        Location:items?.location,
+        notVac:items?.notVac
+      }
     });
     const ws = XLSX.utils.json_to_sheet(newData);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
@@ -33,7 +35,6 @@ const GridHeader = () => {
   return (
     <div className="headersMain">
       <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
-        <a className="jobsHeading">Stats</a>
         <button
           onClick={(e) => exportToCSV(withOutFilterData)}
           style={{

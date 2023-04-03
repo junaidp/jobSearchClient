@@ -5,6 +5,13 @@ import { handleSearch } from "../../features/jobsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
+import axios from "axios";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 
 const GridHeader = () => {
   let { search } = useSelector((state) => state.jobs);
@@ -18,6 +25,7 @@ const GridHeader = () => {
   const exportToCSV = (apiData) => {
     let newData = apiData.map((items) => {
       return {
+        ID: items?.id,
         Title: items?.title,
         HospitalName: items?.hospitalName,
         Location: items?.location,
@@ -32,10 +40,45 @@ const GridHeader = () => {
     FileSaver.saveAs(data, "myFile" + fileExtension);
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const urlApi = async () => {
+    setOpen(true);
+    // let { data } = await axios.get(
+    //   "https://searchjobserver.herokuapp.com/JobSearch/crawler/byUrl"
+    // );
+  };
+
   return (
     <div className="headersMain">
       <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
-        <a className="jobsHeading">Jobs</a>
+        {/* This is Prop Starts */}
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              <Alert severity="info">
+                This will start the crawler on all the available jobs in excel ,
+                are you sure ?
+              </Alert>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Yes, I Agree</Button>
+            <Button onClick={handleClose} autoFocus>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {/* This is Prop Ends */}
         <button
           onClick={(e) => exportToCSV(withOutFilterData)}
           style={{
@@ -59,8 +102,23 @@ const GridHeader = () => {
           style={{ height: "5px" }}
           onChange={(e) => dispatch(handleSearch({ search: e.target.value }))}
           placeholder="Search Here..."
+          className="headerTextField"
         />
       </div>
+      <button
+        onClick={urlApi}
+        style={{
+          padding: "5px",
+          background: "green",
+          outline: "none",
+          border: "2px solid green",
+          borderRadius: "5px",
+          cursor: "pointer",
+          color: "white",
+        }}
+      >
+        Run Crawler
+      </button>
     </div>
   );
 };
