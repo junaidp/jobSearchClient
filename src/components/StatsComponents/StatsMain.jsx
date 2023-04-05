@@ -13,15 +13,17 @@ import {
   handleJobsSortStats,
   handleJobsLocaionSortStats,
   handleJobsErrorNumSortStats,
-  handleNotVacSortStats
+  handleNotVacSortStats,
 } from "../../features/statsSlice";
-
+import DialogBox from "./ErrorDialogBox";
 
 import CircularProgress from "@mui/material/CircularProgress";
 // import moment from "moment/moment";
 import "./index.css";
 
 const GridMain = () => {
+  let [errorMessages, setErrorMessages] = React.useState([]);
+  let [dialog, setDialog] = React.useState(false);
   let [loading, setLoading] = React.useState(true);
   let dispatch = useDispatch();
   let {
@@ -46,6 +48,7 @@ const GridMain = () => {
         let { data } = await axios.get(
           "https://searchjobserver.herokuapp.com/JobSearch/crawler/count"
         );
+        console.log(data);
         dispatch(setDataStats({ data: data }));
         setLoading(false);
       } catch (error) {
@@ -54,6 +57,14 @@ const GridMain = () => {
     };
     start();
   }, []);
+
+  // The Error Dialog Box
+  function errorHandler(errMessages) {
+    if (errMessages !== null && errMessages.length !== 0) {
+      setDialog(true);
+      setErrorMessages(errMessages);
+    }
+  }
 
   // When the User Click the link it will be shown in the new tab
   const openInNewTab = (url) => {
@@ -66,15 +77,23 @@ const GridMain = () => {
 
   // The Searching Logic
   // This will for any of the in this way like you search for "wan" and then it will look in the title,description and location and hospitalName tables and come with the row that include the "wan"  keyword
-  const keys = ["name", "url","location"];
+  const keys = ["name", "url", "location"];
 
   return (
     <div className="TableDataMain">
+      <DialogBox
+        dialog={dialog}
+        messages={errorMessages}
+        setDialog={setDialog}
+      />
       <div>
         {/* Here Starts / This is the main heading of the title,description,url,date,location... */}
         <div className="gridStatsHead">
           {/*  */}
-          <div className="gridHeadSingle statsHeadName" onClick={()=>dispatch(handleHospitalNameSortStats())}>
+          <div
+            className="gridHeadSingle statsHeadName"
+            onClick={() => dispatch(handleHospitalNameSortStats())}
+          >
             <a>Hospital Name</a>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
@@ -86,7 +105,7 @@ const GridMain = () => {
           <div
             className="gridHeadSingle statsHeadJobs"
             onClick={() => dispatch(handleJobsSortStats())}
-            >
+          >
             <a>Jobs</a>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
@@ -94,9 +113,7 @@ const GridMain = () => {
             </div>
           </div>
 
-          <div
-            className="gridHeadSingle statsHeadUrl"
-            >
+          <div className="gridHeadSingle statsHeadUrl">
             <a>URL</a>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
@@ -107,18 +124,18 @@ const GridMain = () => {
           <div
             className="gridHeadSingle statsHeadLocation"
             onClick={() => dispatch(handleJobsLocaionSortStats())}
-            >
+          >
             <a>Location</a>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
               <AiFillCaretDown className="IconDown" />
             </div>
           </div>
-        {/*  */}
+          {/*  */}
           <div
             className="gridHeadSingle statsHeadErrorNum"
-            // onClick={() => dispatch(handleJobsErrorNumSortStats())}
-            >
+            onClick={() => dispatch(handleJobsErrorNumSortStats())}
+          >
             <a>errors</a>
             <div className="gridHeadIcons">
               <AiFillCaretUp className="IconUp" />
@@ -137,8 +154,6 @@ const GridMain = () => {
               <AiFillCaretDown className="IconDown" />
             </div>
           </div>
-
-
         </div>
         {/* Here Ends the Headers which is teh first row of the grid title,description... */}
 
@@ -162,7 +177,9 @@ const GridMain = () => {
                   <div className="statsBody">
                     {/*  */}
                     <div className="statsBodyName">
-                      <Highlighter searchText={searchStats}>{row?.name}</Highlighter>
+                      <Highlighter searchText={searchStats}>
+                        {row?.name}
+                      </Highlighter>
                     </div>
 
                     {/* Hospital Name Column */}
@@ -170,23 +187,36 @@ const GridMain = () => {
                       <div searchText={searchStats}>{row?.vac}</div>
                     </div>
                     {/*  */}
-                    <div className="statsBodyUrl jobsUrl"
-                      onClick={() => openInNewTab(row?.url)}>
-                      <Highlighter searchText={searchStats}>{row?.url}</Highlighter>
+                    <div
+                      className="statsBodyUrl jobsUrl"
+                      onClick={() => openInNewTab(row?.url)}
+                    >
+                      <Highlighter searchText={searchStats}>
+                        {row?.url}
+                      </Highlighter>
                     </div>
                     {/*  */}
                     <div className="statsBodyLocation">
-                      <Highlighter searchText={searchStats}>{row?.location}</Highlighter>
+                      <Highlighter searchText={searchStats}>
+                        {row?.location}
+                      </Highlighter>
                     </div>
                     {/*  */}
                     {/*  */}
-                    <div className="statsBodyErrorNum">
-                      {/* <Highlighter searchText={searchStats}>{row?.errorNum}</Highlighter> */}
-                      {/* <div>{!row.errorMessage===null?row?.errorMessage:"empty"}</div> */}
-                      <div>Empty</div>
+                    <div
+                      className="statsBodyErrorNum"
+                      onClick={() => errorHandler(row?.errorMessage)}
+                    >
+                      <div>
+                        {row?.errorMessage && row?.errorNum !== 0 && (
+                          <p style={{ cursor: "pointer" }}>
+                            {row?.errorNum} errors
+                          </p>
+                        ) }
+                      </div>
                     </div>
-                     {/*  */}
-                    
+                    {/*  */}
+
                     <div className="statsBodyNotVac">
                       <div searchText={searchStats}>{row?.notVac}</div>
                     </div>
@@ -204,3 +234,5 @@ const GridMain = () => {
 };
 
 export default GridMain;
+
+

@@ -11,13 +11,12 @@ let initialState = {
   searchStats: "",
   totalPages: 10,
   data: [],
-  withOutFilterData:[],
-  hospitalSort:false,
-  jobsSort:false,
-  locationSort:false,
-  errorNumSort:false,
-  notVacSort:false,
-
+  withOutFilterData: [],
+  hospitalSort: false,
+  jobsSort: false,
+  locationSort: false,
+  errorNumSort: false,
+  notVacSort: false,
 };
 
 const userSlice = createSlice({
@@ -45,7 +44,7 @@ const userSlice = createSlice({
     },
     setDataStats: (state, action) => {
       state.data = action.payload.data;
-      state.withOutFilterData=action.payload.data
+      state.withOutFilterData = action.payload.data;
       state.totalPages = Math.ceil(
         action.payload.data.length / state.selectPage
       );
@@ -73,7 +72,7 @@ const userSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.hospitalSort= !state.hospitalSort
+      state.hospitalSort = !state.hospitalSort;
     },
 
     handleJobsSortStats: (state) => {
@@ -90,10 +89,8 @@ const userSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.jobsSort= !state.jobsSort
+      state.jobsSort = !state.jobsSort;
     },
-
-
 
     handleJobsLocaionSortStats: (state) => {
       if (state.locationSort) {
@@ -109,9 +106,8 @@ const userSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.locationSort= !state.locationSort
+      state.locationSort = !state.locationSort;
     },
-
 
     handleJobsErrorNumSortStats: (state) => {
       if (state.errorNumSort) {
@@ -127,9 +123,8 @@ const userSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.errorNumSort= !state.errorNumSort
+      state.errorNumSort = !state.errorNumSort;
     },
-
 
     handleNotVacSortStats: (state) => {
       if (state.notVacSort) {
@@ -145,11 +140,8 @@ const userSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.notVacSort= !state.notVacSort
+      state.notVacSort = !state.notVacSort;
     },
-
-
-
   },
 });
 
@@ -166,7 +158,7 @@ export const {
   handleJobsSortStats,
   handleJobsLocaionSortStats,
   handleJobsErrorNumSortStats,
-  handleNotVacSortStats
+  handleNotVacSortStats,
 } = userSlice.actions;
 
 export default userSlice.reducer;

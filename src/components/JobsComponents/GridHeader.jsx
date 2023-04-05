@@ -5,7 +5,6 @@ import { handleSearch } from "../../features/jobsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
-import axios from "axios";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -27,6 +26,7 @@ const GridHeader = () => {
       return {
         ID: items?.id,
         Title: items?.title,
+        jobType: items?.jobType?items?.jobType:"Empty",
         HospitalName: items?.hospitalName,
         Location: items?.location,
         Url: items?.url,
@@ -101,7 +101,7 @@ const GridHeader = () => {
           value={search}
           style={{ height: "5px" }}
           onChange={(e) => dispatch(handleSearch({ search: e.target.value }))}
-          placeholder="Search Here..."
+          placeholder="Search Globally..."
           className="headerTextField"
         />
       </div>

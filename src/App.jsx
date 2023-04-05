@@ -1,11 +1,11 @@
 import React from "react";
 import "./App.css";
-import {Tabs} from "./pages/index"
+import { Tabs } from "./pages/index";
 
 const App = () => {
   return (
     <div className="appMain">
-      <Tabs/>
+      <Tabs />
     </div>
   );
 };

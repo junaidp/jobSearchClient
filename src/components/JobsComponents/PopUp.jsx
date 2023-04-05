@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import "./index.css"
+import "./index.css";
 
 const style = {
   position: "absolute",
@@ -45,25 +45,29 @@ export default function BasicModal() {
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-         className="model"
+        className="model"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Confirm us that you are the right person!
           </Typography>
-          <div style={{display:"flex",flexDirection:"column",gap:"30px"}}>
-          <TextField
-            id="outlined-controlled"
-            label="Password"
-            value={password}
-            style={{ marginTop: "30px" }}
-            type="password"
-            onChange={(event) => {
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "30px" }}
+          >
+            <TextField
+              id="outlined-controlled"
+              label="Password"
+              value={password}
+              style={{ marginTop: "30px" }}
+              type="password"
+              onChange={(event) => {
                 setPassword(event.target.value);
-            }}
+              }}
             />
-            <Button variant="contained" onClick={handleLogin}>Login</Button>
-            </div>
+            <Button variant="contained" onClick={handleLogin}>
+              Login
+            </Button>
+          </div>
         </Box>
       </Modal>
     </div>

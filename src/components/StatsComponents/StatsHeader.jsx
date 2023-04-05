@@ -21,9 +21,9 @@ const GridHeader = () => {
         HospitalName: items?.name,
         Jobs: items?.vac,
         Url: items?.url,
-        Location:items?.location,
-        notVac:items?.notVac
-      }
+        Location: items?.location,
+        notVac: items?.notVac,
+      };
     });
     const ws = XLSX.utils.json_to_sheet(newData);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
@@ -56,7 +56,9 @@ const GridHeader = () => {
           aria-label="copy-button"
           value={searchStats}
           style={{ height: "5px" }}
-          onChange={(e) => dispatch(handleSearchStats({ search: e.target.value }))}
+          onChange={(e) =>
+            dispatch(handleSearchStats({ search: e.target.value }))
+          }
           placeholder="Search Here..."
         />
       </div>

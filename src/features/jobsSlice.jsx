@@ -14,9 +14,16 @@ let initialState = {
   titleSort: false,
   descriptionSort: false,
   locationSort: false,
-  dateSort:false,
-  withOutFilterData:[],
-  hospitalSort:false
+  dateSort: false,
+  jobTypeSort: false,
+  withOutFilterData: [],
+  hospitalSort: false,
+
+  // The Filters On Each Column
+  titleFilter: "",
+  jobTypeFilter: "",
+  nameFilter: "",
+  locationFilter: "",
 };
 
 const jobsSlice = createSlice({
@@ -44,11 +51,57 @@ const jobsSlice = createSlice({
     },
     setData: (state, action) => {
       state.data = action.payload.data;
-      state.withOutFilterData=action.payload.data
+      state.withOutFilterData = action.payload.data;
       state.totalPages = Math.ceil(
         action.payload.data.length / state.selectPage
       );
     },
+
+    // The Filter on Each Column
+
+    stopJobSearch: (state) => {
+      state.search = "";
+    },
+    stopSubSearch: (state) => {
+      state.jobTypeFilter = "";
+      state.nameFilter = "";
+      state.locationFilter = "";
+      state.titleFilter = "";
+    },
+    searchOnColumns: (state) => {
+      let dummyData = state.withOutFilterData;
+      if (state.titleFilter) {
+        dummyData = dummyData.filter((item) =>
+          item?.title?.toUpperCase().includes(state.titleFilter.toUpperCase())
+        );
+      }
+      if (state.jobTypeFilter) {
+        dummyData = dummyData.filter((item) =>
+          item?.jobType
+            ?.toUpperCase()
+            .includes(state.jobTypeFilter.toUpperCase())
+        );
+      }
+      if (state.nameFilter) {
+        dummyData = dummyData.filter((item) =>
+          item?.hospitalName
+            ?.toUpperCase()
+            .includes(state.nameFilter.toUpperCase())
+        );
+      }
+      if (state.locationFilter) {
+        dummyData = dummyData.filter((item) =>
+          item?.location
+            ?.toUpperCase()
+            .includes(state.locationFilter.toUpperCase())
+        );
+      }
+      state.data = dummyData;
+    },
+    handleChangeTextField: (state, action) => {
+      state[action.payload.name] = action.payload.value;
+    },
+
     handleInputForm: (state) => {
       if (
         Number(state.inputPage) <= state.totalPages &&
@@ -109,7 +162,6 @@ const jobsSlice = createSlice({
       state.locationSort = !state.locationSort;
     },
 
-
     handleHospitalNameSort: (state) => {
       if (state.hospitalSort) {
         state.data = state.data.sort(function (a, b) {
@@ -124,7 +176,24 @@ const jobsSlice = createSlice({
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
-      state.hospitalSort= !state.hospitalSort
+      state.hospitalSort = !state.hospitalSort;
+    },
+
+    handleJobTypeSort: (state) => {
+      if (state.jobTypeSort) {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.jobType?.toUpperCase() || "";
+          var textB = b?.jobType?.toUpperCase() || "";
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        });
+      } else {
+        state.data = state.data.sort(function (a, b) {
+          var textA = a?.jobType?.toUpperCase() || "";
+          var textB = b?.jobType?.toUpperCase() || "";
+          return textA < textB ? 1 : textA > textB ? -1 : 0;
+        });
+      }
+      state.jobTypeSort = !state.jobTypeSort;
     },
 
     // The Below Sorting Logic is Not Working for the Chrome
@@ -137,17 +206,18 @@ const jobsSlice = createSlice({
     //   state.locationSort = !state.locationSort;
     // },
 
-
     handleDateSort: (state) => {
       if (state.dateSort) {
-        state.data = state.data.sort((a, b) => (new Date(a.addedDate)) - (new Date(b.addedDate)));
+        state.data = state.data.sort(
+          (a, b) => new Date(a.addedDate) - new Date(b.addedDate)
+        );
       } else {
-        state.data = state.data.sort((a, b) => (new Date(b.addedDate)) - (new Date(a.addedDate)));
+        state.data = state.data.sort(
+          (a, b) => new Date(b.addedDate) - new Date(a.addedDate)
+        );
       }
       state.dateSort = !state.dateSort;
     },
-
-
   },
 });
 
@@ -164,7 +234,14 @@ export const {
   handleTitleSort,
   clearSearch,
   handleDateSort,
-  handleHospitalNameSort
+  handleHospitalNameSort,
+  handleJobTypeSort,
+  stopJobSearch,
+
+  //  The Single Column Filters
+  handleChangeTextField,
+  stopSubSearch,
+  searchOnColumns,
 } = jobsSlice.actions;
 
 export default jobsSlice.reducer;
