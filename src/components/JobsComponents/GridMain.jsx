@@ -221,7 +221,7 @@ const UpcomingItemsTable = () => {
             )
             .map((item, index) => (
               <TableRow>
-                <TableCell component="th" scope="row" className="jobsGridBody">
+                <TableCell component="th" scope="row">
                   {item?.id}
                 </TableCell>
                 <TableCell className="jobsGridBody">
@@ -229,26 +229,26 @@ const UpcomingItemsTable = () => {
                 </TableCell>
                 <TableCell className="jobsGridBody">
                   <Highlighter searchText={search}>
-                    {item?.jobType && item?.jobType}
+                    {item?.jobType ? item?.jobType:""}
                   </Highlighter>
                 </TableCell>
                 <TableCell className="jobsGridBody">
                   <Highlighter searchText={search}>
-                    {item?.hospitalName}
+                    {item?.hospitalName?item?.hospitalName:""}
                   </Highlighter>
                 </TableCell>
                 <TableCell className="jobsGridBody">
                   <Highlighter searchText={search}>
-                    {item?.location}
+                    {item?.location?item?.location:""}
                   </Highlighter>
                 </TableCell>
                 <TableCell
                   onClick={() => openInNewTab(item?.url)}
                   className="link jobsGridBody"
                 >
-                  <Highlighter searchText={search}>{item?.url}</Highlighter>
+                  <Highlighter searchText={search}>{item?.url?item?.url:""}</Highlighter>
                 </TableCell>
-                <TableCell className="jobsGridBody">
+                <TableCell>
                   {moment(item?.addedDate).format("DD/MM/YYYY")}
                 </TableCell>
               </TableRow>

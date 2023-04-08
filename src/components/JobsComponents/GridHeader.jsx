@@ -12,6 +12,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 
+
 const GridHeader = () => {
   let { search } = useSelector((state) => state.jobs);
   let { withOutFilterData } = useSelector((state) => state.jobs);
@@ -53,8 +54,11 @@ const GridHeader = () => {
     // );
   };
 
+  let lastDate=JSON.parse(sessionStorage.getItem("endTime"))
+
   return (
-    <div className="headersMain">
+    <div className="headersMain headersMainJobs">
+      <p>last run finished:<span className="lastDate">{lastDate}</span></p>
       <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
         {/* This is Prop Starts */}
         <Dialog

@@ -178,7 +178,7 @@ const GridMain = () => {
                     {/*  */}
                     <div className="statsBodyName">
                       <Highlighter searchText={searchStats}>
-                        {row?.name}
+                        {row?.name?row?.name:""}
                       </Highlighter>
                     </div>
 
@@ -192,13 +192,13 @@ const GridMain = () => {
                       onClick={() => openInNewTab(row?.url)}
                     >
                       <Highlighter searchText={searchStats}>
-                        {row?.url}
+                        {row?.url?row?.url:""}
                       </Highlighter>
                     </div>
                     {/*  */}
                     <div className="statsBodyLocation">
                       <Highlighter searchText={searchStats}>
-                        {row?.location}
+                        {row?.location?row?.location:''}
                       </Highlighter>
                     </div>
                     {/*  */}
@@ -209,9 +209,9 @@ const GridMain = () => {
                     >
                       <div>
                         {row?.errorMessage && row?.errorNum !== 0 && (
-                          <p style={{ cursor: "pointer" }}>
+                          <button className="errorBtn">
                             {row?.errorNum} errors
-                          </p>
+                          </button>
                         ) }
                       </div>
                     </div>

@@ -61,14 +61,14 @@ const userSlice = createSlice({
     handleHospitalNameSortStats: (state) => {
       if (state.hospitalSort) {
         state.data = state.data.sort(function (a, b) {
-          var textA = a?.name.toUpperCase() || "";
-          var textB = b?.name.toUpperCase() || "";
+          var textA = a?.name?.toUpperCase() || "";
+          var textB = b?.name?.toUpperCase() || "";
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
         state.data = state.data.sort(function (a, b) {
-          var textA = a?.name.toUpperCase() || "";
-          var textB = b?.name.toUpperCase() || "";
+          var textA = a?.name?.toUpperCase() || "";
+          var textB = b?.name?.toUpperCase() || "";
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
@@ -95,14 +95,14 @@ const userSlice = createSlice({
     handleJobsLocaionSortStats: (state) => {
       if (state.locationSort) {
         state.data = state.data.sort(function (a, b) {
-          var textA = a?.location.toUpperCase() || "";
-          var textB = b?.location.toUpperCase() || "";
+          var textA = a?.location?.toUpperCase() || "";
+          var textB = b?.location?.toUpperCase() || "";
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
         state.data = state.data.sort(function (a, b) {
-          var textA = a?.location.toUpperCase() || "";
-          var textB = b?.location.toUpperCase() || "";
+          var textA = a?.location?.toUpperCase() || "";
+          var textB = b?.location?.toUpperCase() || "";
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }

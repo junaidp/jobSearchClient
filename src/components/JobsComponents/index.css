@@ -16,7 +16,7 @@
 }
 
 
-@media screen and (min-width:900px) {
+@media screen and (min-width:1120px) {
   .jobsGridBody{
   word-break: break-all;
   }
@@ -167,4 +167,18 @@
 .tableFooter .MuiOutlinedInput-root {
   padding: 0 !important;
   border: unset !important;
+}
+
+.lastDate{
+  text-decoration:underline ;
+}
+
+@media screen and (max-width:800px) {
+  .headersMainJobs{
+    width: 120vh;
+  }
+  .tableFooterMainJobs{
+    width: 120vh;
+
+  }
 }

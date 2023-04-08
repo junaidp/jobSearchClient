@@ -114,14 +114,14 @@ const jobsSlice = createSlice({
     handleTitleSort: (state) => {
       if (state.titleSort) {
         state.data = state.data.sort(function (a, b) {
-          var textA = a.title.toUpperCase();
-          var textB = b.title.toUpperCase();
+          var textA = a?.title?.toUpperCase();
+          var textB = b?.title?.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
         state.data = state.data.sort(function (a, b) {
-          var textA = a.title.toUpperCase();
-          var textB = b.title.toUpperCase();
+          var textA = a?.title?.toUpperCase();
+          var textB = b?.title?.toUpperCase();
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
@@ -130,15 +130,15 @@ const jobsSlice = createSlice({
 
     handleDescriptionSort: (state) => {
       if (state.descriptionSort) {
-        state.data = state.data.sort(function (a, b) {
-          var textA = a.description.toUpperCase();
-          var textB = b.description.toUpperCase();
+        state.data = state?.data?.sort(function (a, b) {
+          var textA = a?.description?.toUpperCase();
+          var textB = b?.description?.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
         state.data = state.data.sort(function (a, b) {
-          var textA = a.description.toUpperCase();
-          var textB = b.description.toUpperCase();
+          var textA = a?.description?.toUpperCase();
+          var textB = b?.description?.toUpperCase();
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
@@ -148,14 +148,14 @@ const jobsSlice = createSlice({
     handleLocationSort: (state) => {
       if (state.locationSort) {
         state.data = state.data.sort(function (a, b) {
-          var textA = a.location.toUpperCase();
-          var textB = b.location.toUpperCase();
+          var textA = a?.location?.toUpperCase();
+          var textB = b?.location?.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
         state.data = state.data.sort(function (a, b) {
-          var textA = a.location.toUpperCase();
-          var textB = b.location.toUpperCase();
+          var textA = a?.location?.toUpperCase();
+          var textB = b?.location?.toUpperCase();
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
@@ -165,14 +165,14 @@ const jobsSlice = createSlice({
     handleHospitalNameSort: (state) => {
       if (state.hospitalSort) {
         state.data = state.data.sort(function (a, b) {
-          var textA = a?.hospitalName.toUpperCase() || "";
-          var textB = b?.hospitalName.toUpperCase() || "";
+          var textA = a?.hospitalName?.toUpperCase() || "";
+          var textB = b?.hospitalName?.toUpperCase() || "";
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
       } else {
         state.data = state.data.sort(function (a, b) {
-          var textA = a?.hospitalName.toUpperCase() || "";
-          var textB = b?.hospitalName.toUpperCase() || "";
+          var textA = a?.hospitalName?.toUpperCase() || "";
+          var textB = b?.hospitalName?.toUpperCase() || "";
           return textA < textB ? 1 : textA > textB ? -1 : 0;
         });
       }
