@@ -11,11 +11,40 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
+import Card from "@mui/material/Card";
+import Slider from "./Slider";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// The Google API
+import { Grid, TextField } from "@mui/material";
+import { Autocomplete } from "@react-google-maps/api";
+
+import {
+  changeRadiusLocationSearch,
+  clearFilters,
+  jobResultWithLocationRadius,
+  loadingTrue,
+  loadingFalse,
+  setData,
+  clearBtnFunctions,
+  removeAlert,
+} from "../../features/jobsSlice";
+import axios from "axios";
 
 const GridHeader = () => {
-  let { search } = useSelector((state) => state.jobs);
+  let {
+    search,
+    radiusLocationSearch,
+    initialJobsResult,
+    radius,
+    loading,
+    alertText,
+  } = useSelector((state) => state.jobs);
   let { withOutFilterData } = useSelector((state) => state.jobs);
+  // let [place, setPlace] = React.useState(radiusLocationSearch);
+
   let dispatch = useDispatch();
 
   const fileType =
@@ -27,7 +56,7 @@ const GridHeader = () => {
       return {
         ID: items?.id,
         Title: items?.title,
-        jobType: items?.jobType?items?.jobType:"Empty",
+        jobType: items?.jobType ? items?.jobType : "Empty",
         HospitalName: items?.hospitalName,
         Location: items?.location,
         Url: items?.url,
@@ -54,50 +83,139 @@ const GridHeader = () => {
     // );
   };
 
-  let lastDate=JSON.parse(sessionStorage.getItem("endTime"))
+  let lastDate = JSON.parse(sessionStorage.getItem("endTime"));
+
+  const searchLocationRadius = async () => {
+    dispatch(loadingTrue());
+    let { data } = await axios.post(
+      "https://searchjobserver.herokuapp.com/Search/ByLocation",
+      { location: radiusLocationSearch, radius: radius }
+    );
+    dispatch(jobResultWithLocationRadius({ data: data }));
+    dispatch(loadingFalse());
+    setTimeout(() => {
+      dispatch(removeAlert());
+    }, 2000);
+  };
+
+  const clearLocationRadius = async () => {
+    dispatch(clearFilters());
+    // setPlace("");
+    if (initialJobsResult === false) {
+      dispatch(loadingTrue());
+      let { data } = await axios.get(
+        "https://searchjobserver.herokuapp.com/JobSearch/crawler/all",
+        { login: "root", password: "root" }
+      );
+      // dispatch(setData({ data: data }));
+      dispatch(clearBtnFunctions({ data: data }));
+      dispatch(loadingFalse());
+      setTimeout(() => {
+        dispatch(removeAlert());
+      }, 2000);
+    }
+  };
+
+  React.useEffect(() => {
+    if (alertText !== "") {
+      toast.success(alertText, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  }, [alertText]);
+
+  // The Google Api AutoComplete
+
+  // function handlePlace(e) {
+    // setPlace(e.target.value);
+  // }
+
+  // function placeChanged(e) {
+    // console.log(e);
+    // dispatch(changeRadiusLocationSearch(place))
+  // }
+
+  // React.useEffect(() => {
+  //   dispatch(changeRadiusLocationSearch(place));
+  // }, [place]);
+
+  // console.log(place)
+
+  let inputRef=React.useRef()
+
+  function placeChanged(){
+      dispatch(changeRadiusLocationSearch(inputRef?.current?.value))
+  }
+
+  
 
   return (
-    <div className="headersMain headersMainJobs">
-      <p>last run finished:<span className="lastDate">{lastDate}</span></p>
-      <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
-        {/* This is Prop Starts */}
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              <Alert severity="info">
-                This will start the crawler on all the available jobs in excel ,
-                are you sure ?
-              </Alert>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Yes, I Agree</Button>
-            <Button onClick={handleClose} autoFocus>
-              Close
-            </Button>
-          </DialogActions>
-        </Dialog>
-        {/* This is Prop Ends */}
-        <button
-          onClick={(e) => exportToCSV(withOutFilterData)}
-          style={{
-            padding: "5px",
-            background: "green",
-            outline: "none",
-            border: "2px solid green",
-            borderRadius: "5px",
-            cursor: "pointer",
-            color: "white",
-          }}
-        >
-          Download Jobs
-        </button>
+    <div className="headersMainJobs">
+      <ToastContainer />
+      <div className="lastDateAndCard">
+        <p>
+          last run finished:<span className="lastDate">{lastDate}</span>
+        </p>
+        <Card className="jobsHeaderCard">
+          <Autocomplete onPlaceChanged={placeChanged}>
+            <input
+            ref={inputRef}
+              placeholder="Location"
+              className="headerLocationSearch commomTextFields"
+              value={radiusLocationSearch}
+              onChange={(e) =>
+                dispatch(changeRadiusLocationSearch(e.target.value))
+              }
+            />
+          </Autocomplete>
+          <Slider />
+          <div className="headersBtn">
+            <button
+              className={`search ${loading ? "disabledBtn" : ""}`}
+              onClick={searchLocationRadius}
+            >
+              Search
+            </button>
+            <button
+              className={`clear ${loading ? "disabledBtn" : ""}`}
+              onClick={clearLocationRadius}
+            >
+              Clear
+            </button>
+          </div>
+        </Card>
       </div>
+      {/* <div style={{ display: "flex", gap: "30px", alignItems: "center" }}> */}
+      {/* This is Prop Starts */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <Alert severity="info">
+              This will start the crawler on all the available jobs in excel ,
+              are you sure ?
+            </Alert>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Yes, I Agree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* This is Prop Ends */}
+      <button
+        onClick={(e) => exportToCSV(withOutFilterData)}
+        className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
+      >
+        Download Jobs
+      </button>
+      {/* </div> */}
       <div className="headersIcons">
         <input
           name="copy-button"
@@ -106,20 +224,12 @@ const GridHeader = () => {
           style={{ height: "5px" }}
           onChange={(e) => dispatch(handleSearch({ search: e.target.value }))}
           placeholder="Search Globally..."
-          className="headerTextField"
+          className="headerTextField commomTextFields"
         />
       </div>
       <button
         onClick={urlApi}
-        style={{
-          padding: "5px",
-          background: "green",
-          outline: "none",
-          border: "2px solid green",
-          borderRadius: "5px",
-          cursor: "pointer",
-          color: "white",
-        }}
+        className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
       >
         Run Crawler
       </button>

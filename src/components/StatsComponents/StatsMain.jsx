@@ -21,6 +21,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 // import moment from "moment/moment";
 import "./index.css";
 
+
 const GridMain = () => {
   let [errorMessages, setErrorMessages] = React.useState([]);
   let [dialog, setDialog] = React.useState(false);
@@ -178,7 +179,7 @@ const GridMain = () => {
                     {/*  */}
                     <div className="statsBodyName">
                       <Highlighter searchText={searchStats}>
-                        {row?.name?row?.name:""}
+                        {row?.name ? row?.name : ""}
                       </Highlighter>
                     </div>
 
@@ -192,13 +193,13 @@ const GridMain = () => {
                       onClick={() => openInNewTab(row?.url)}
                     >
                       <Highlighter searchText={searchStats}>
-                        {row?.url?row?.url:""}
+                        {row?.url ? row?.url : ""}
                       </Highlighter>
                     </div>
                     {/*  */}
                     <div className="statsBodyLocation">
                       <Highlighter searchText={searchStats}>
-                        {row?.location?row?.location:''}
+                        {row?.location ? row?.location : ""}
                       </Highlighter>
                     </div>
                     {/*  */}
@@ -212,7 +213,7 @@ const GridMain = () => {
                           <button className="errorBtn">
                             {row?.errorNum} errors
                           </button>
-                        ) }
+                        )}
                       </div>
                     </div>
                     {/*  */}
@@ -234,5 +235,3 @@ const GridMain = () => {
 };
 
 export default GridMain;
-
-

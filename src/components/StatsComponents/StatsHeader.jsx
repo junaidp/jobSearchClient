@@ -37,15 +37,8 @@ const GridHeader = () => {
       <div style={{ display: "flex", gap: "30px", alignItems: "center" }}>
         <button
           onClick={(e) => exportToCSV(withOutFilterData)}
-          style={{
-            padding: "5px",
-            background: "green",
-            outline: "none",
-            border: "2px solid green",
-            borderRadius: "5px",
-            cursor: "pointer",
-            color: "white",
-          }}
+          className="greenBtn"
+          // className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
         >
           Download Stats
         </button>
@@ -54,6 +47,7 @@ const GridHeader = () => {
         <input
           name="copy-button"
           aria-label="copy-button"
+          className="commomTextFields"
           value={searchStats}
           style={{ height: "5px" }}
           onChange={(e) =>

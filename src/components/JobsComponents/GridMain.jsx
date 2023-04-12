@@ -35,10 +35,14 @@ import {
   stopJobSearch,
   stopSubSearch,
   searchOnColumns,
+
+  // The Rdius Filter
+  loadingTrue,
+  loadingFalse,
 } from "../../features/jobsSlice";
 
 const UpcomingItemsTable = () => {
-  let [loading, setLoading] = React.useState(true);
+  // let [loading, setLoading] = React.useState(true);
   let dispatch = useDispatch();
   let {
     paginationPage,
@@ -49,8 +53,8 @@ const UpcomingItemsTable = () => {
     jobTypeFilter,
     nameFilter,
     locationFilter,
+    loading,
   } = useSelector((state) => state.jobs);
-
 
   // This UseEffect is to change the total Pages Logic
   React.useEffect(() => {
@@ -63,13 +67,15 @@ const UpcomingItemsTable = () => {
   React.useEffect(() => {
     let start = async () => {
       try {
-        setLoading(true);
+        // setLoading(true);
+        dispatch(loadingTrue());
         let { data } = await axios.get(
           "https://searchjobserver.herokuapp.com/JobSearch/crawler/all",
           { login: "root", password: "root" }
         );
         dispatch(setData({ data: data }));
-        setLoading(false);
+        dispatch(loadingFalse());
+        // setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -94,13 +100,10 @@ const UpcomingItemsTable = () => {
     dispatch(stopSubSearch());
   }, [search]);
 
-  if (loading) {
-    return <CircularProgress />;
-  }
-
   // The Searching Logic
   // This will for any of the in this way like you search for "wan" and then it will look in the title,description and location and hospitalName tables and come with the row that include the "wan"  keyword
   const keys = ["title", "location", "url", "hospitalName", "jobType"];
+
 
   return (
     <TableContainer
@@ -110,151 +113,159 @@ const UpcomingItemsTable = () => {
       filter={search}
     >
       <Header />
-      <Table aria-label="caption table" className="UpcomingItemsTable">
-        <TableHead>
-          <TableRow>
-            <TableCell className="headerHeading">
-              ID <img src={FilterImg} className="filterImg" />
-            </TableCell>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <Table aria-label="caption table" className="UpcomingItemsTable">
+          <TableHead>
+            <TableRow>
+              <TableCell className="headerHeading">
+                ID <img src={FilterImg} className="filterImg" />
+              </TableCell>
 
-            <TableCell className="headerHeading">
-              <input
-                placeholder="Title"
-                className="textFields"
-                value={titleFilter}
-                onChange={(e) =>
-                  dispatch(
-                    handleChangeTextField({
-                      name: e.target.name,
-                      value: e.target.value,
-                    })
-                  )
-                }
-                name="titleFilter"
-              />
-              <div onClick={() => dispatch(handleTitleSort())}>
-                Title <img src={FilterImg} className="filterImg" />
-              </div>
-            </TableCell>
+              <TableCell className="headerHeading">
+                <input
+                  placeholder="Title"
+                  className="textFields commomTextFields"
+                  value={titleFilter}
+                  onChange={(e) =>
+                    dispatch(
+                      handleChangeTextField({
+                        name: e.target.name,
+                        value: e.target.value,
+                      })
+                    )
+                  }
+                  name="titleFilter"
+                />
+                <div onClick={() => dispatch(handleTitleSort())}>
+                  Title <img src={FilterImg} className="filterImg" />
+                </div>
+              </TableCell>
 
-            <TableCell className="headerHeading">
-              <input
-                placeholder="Type"
-                className="textFields"
-                value={jobTypeFilter}
-                name="jobTypeFilter"
-                onChange={(e) =>
-                  dispatch(
-                    handleChangeTextField({
-                      name: e.target.name,
-                      value: e.target.value,
-                    })
-                  )
-                }
-              />
-              <div onClick={() => dispatch(handleJobTypeSort())}>
-                jobType <img src={FilterImg} className="filterImg" />
-              </div>
-            </TableCell>
+              <TableCell className="headerHeading">
+                <input
+                  placeholder="Type"
+                  className="textFields commomTextFields"
+                  value={jobTypeFilter}
+                  name="jobTypeFilter"
+                  onChange={(e) =>
+                    dispatch(
+                      handleChangeTextField({
+                        name: e.target.name,
+                        value: e.target.value,
+                      })
+                    )
+                  }
+                />
+                <div onClick={() => dispatch(handleJobTypeSort())}>
+                  jobType <img src={FilterImg} className="filterImg" />
+                </div>
+              </TableCell>
 
-            <TableCell className="headerHeading">
-              <input
-                placeholder="Name"
-                className="textFields"
-                name="nameFilter"
-                value={nameFilter}
-                onChange={(e) =>
-                  dispatch(
-                    handleChangeTextField({
-                      name: e.target.name,
-                      value: e.target.value,
-                    })
-                  )
-                }
-              />
-              <div onClick={() => dispatch(handleHospitalNameSort())}>
-                Hospital Name <img src={FilterImg} className="filterImg" />
-              </div>
-            </TableCell>
+              <TableCell className="headerHeading">
+                <input
+                  placeholder="Name"
+                  className="textFields commomTextFields"
+                  name="nameFilter"
+                  value={nameFilter}
+                  onChange={(e) =>
+                    dispatch(
+                      handleChangeTextField({
+                        name: e.target.name,
+                        value: e.target.value,
+                      })
+                    )
+                  }
+                />
+                <div onClick={() => dispatch(handleHospitalNameSort())}>
+                  Hospital Name <img src={FilterImg} className="filterImg" />
+                </div>
+              </TableCell>
 
-            <TableCell className="headerHeading">
-              <input
-                placeholder="location"
-                className="textFields"
-                name="locationFilter"
-                value={locationFilter}
-                onChange={(e) =>
-                  dispatch(
-                    handleChangeTextField({
-                      name: e.target.name,
-                      value: e.target.value,
-                    })
-                  )
-                }
-              />
-              <div onClick={() => dispatch(handleLocationSort())}>
-                Location <img src={FilterImg} className="filterImg" />
-              </div>
-            </TableCell>
+              <TableCell className="headerHeading">
+                <input
+                  placeholder="location"
+                  className="textFields commomTextFields"
+                  name="locationFilter"
+                  value={locationFilter}
+                  onChange={(e) =>
+                    dispatch(
+                      handleChangeTextField({
+                        name: e.target.name,
+                        value: e.target.value,
+                      })
+                    )
+                  }
+                />
+                <div onClick={() => dispatch(handleLocationSort())}>
+                  Location <img src={FilterImg} className="filterImg" />
+                </div>
+              </TableCell>
 
-            <TableCell className="headerHeading">
-              Url <img src={FilterImg} className="filterImg" />
-            </TableCell>
-            <TableCell
-              onClick={() => dispatch(handleDateSort())}
-              className="headerHeading"
-            >
-              First Found <img src={FilterImg} className="filterImg" />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {dummyData
-            .filter((item) =>
-              keys?.some((key) =>
-                item[key]?.toLowerCase()?.includes(search?.toLowerCase())
+              <TableCell className="headerHeading">
+                Url <img src={FilterImg} className="filterImg" />
+              </TableCell>
+              <TableCell
+                onClick={() => dispatch(handleDateSort())}
+                className="headerHeading"
+              >
+                First Found <img src={FilterImg} className="filterImg" />
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {dummyData
+              .filter((item) =>
+                keys?.some((key) =>
+                  item[key]?.toLowerCase()?.includes(search?.toLowerCase())
+                )
               )
-            )
-            .slice(
-              paginationPage * selectPage - selectPage,
-              paginationPage * selectPage
-            )
-            .map((item, index) => (
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  {item?.id}
-                </TableCell>
-                <TableCell className="jobsGridBody">
-                  <Highlighter searchText={search}>{item?.title}</Highlighter>
-                </TableCell>
-                <TableCell className="jobsGridBody">
-                  <Highlighter searchText={search}>
-                    {item?.jobType ? item?.jobType:""}
-                  </Highlighter>
-                </TableCell>
-                <TableCell className="jobsGridBody">
-                  <Highlighter searchText={search}>
-                    {item?.hospitalName?item?.hospitalName:""}
-                  </Highlighter>
-                </TableCell>
-                <TableCell className="jobsGridBody">
-                  <Highlighter searchText={search}>
-                    {item?.location?item?.location:""}
-                  </Highlighter>
-                </TableCell>
-                <TableCell
-                  onClick={() => openInNewTab(item?.url)}
-                  className="link jobsGridBody"
-                >
-                  <Highlighter searchText={search}>{item?.url?item?.url:""}</Highlighter>
-                </TableCell>
-                <TableCell>
-                  {moment(item?.addedDate).format("DD/MM/YYYY")}
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
+              .slice(
+                paginationPage * selectPage - selectPage,
+                paginationPage * selectPage
+              )
+              .map((item, index) => (
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {item?.id}
+                  </TableCell>
+                  <TableCell className="jobsGridBody">
+                    <Highlighter searchText={search}>
+                      {item?.title ? item?.title : ""}
+                    </Highlighter>
+                  </TableCell>
+                  <TableCell className="jobsGridBody">
+                    <Highlighter searchText={search}>
+                      {item?.jobType ? item?.jobType : ""}
+                    </Highlighter>
+                  </TableCell>
+                  <TableCell className="jobsGridBody">
+                    <Highlighter searchText={search}>
+                      {item?.hospitalName ? item?.hospitalName : ""}
+                    </Highlighter>
+                  </TableCell>
+                  <TableCell className="jobsGridBody">
+                    <Highlighter searchText={search}>
+                      {item?.location ? item?.location : ""}
+                    </Highlighter>
+                  </TableCell>
+                  <TableCell
+                    onClick={() => openInNewTab(item?.url)}
+                    className="link jobsGridBody"
+                  >
+                    <Highlighter searchText={search}>
+                      {item?.url ? item?.url : ""}
+                    </Highlighter>
+                  </TableCell>
+                  <TableCell>
+                    {moment(item?.addedDate).format("DD/MM/YYYY")}
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      )}
       <Footer />
     </TableContainer>
   );

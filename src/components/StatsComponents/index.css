@@ -411,3 +411,12 @@ input {
     width: 99%;
   }
 }
+
+.greenBtn {
+  padding: 5px;
+  background-color: green;
+  border: 2px solid green;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ffffff;
+}
