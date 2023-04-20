@@ -21,11 +21,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 // import moment from "moment/moment";
 import "./index.css";
 
+// The Jobs Usage
+import {  loadingTrue,
+  loadingFalse}  from "../../features/jobsSlice"
+
 
 const GridMain = () => {
   let [errorMessages, setErrorMessages] = React.useState([]);
   let [dialog, setDialog] = React.useState(false);
-  let [loading, setLoading] = React.useState(true);
+  // let [loading, setLoading] = React.useState(true);
   let dispatch = useDispatch();
   let {
     paginationPage,
@@ -33,6 +37,8 @@ const GridMain = () => {
     searchStats,
     data: dummyData,
   } = useSelector((state) => state.stats);
+
+  let {loading}=useSelector((state)=>state.jobs)
 
   // This UseEffect is to change the total Pages Logic
   React.useEffect(() => {
@@ -45,13 +51,14 @@ const GridMain = () => {
   React.useEffect(() => {
     let start = async () => {
       try {
-        setLoading(true);
+        // setLoading(true);
+        dispatch(loadingTrue())
         let { data } = await axios.get(
           "https://searchjobserver.herokuapp.com/JobSearch/crawler/count"
         );
-        console.log(data);
         dispatch(setDataStats({ data: data }));
-        setLoading(false);
+        dispatch(loadingFalse())
+        // setLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -172,9 +179,9 @@ const GridMain = () => {
               paginationPage * selectPage - selectPage,
               paginationPage * selectPage
             )
-            .map((row) => {
+            .map((row,index) => {
               return (
-                <div className="gridWrapper">
+                <div className="gridWrapper" key={index}>
                   <div className="statsBody">
                     {/*  */}
                     <div className="statsBodyName">

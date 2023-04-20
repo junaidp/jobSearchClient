@@ -124,42 +124,22 @@ const GridHeader = () => {
     }
   }, [alertText]);
 
-  // The Google Api AutoComplete
+ 
+  let inputRef = React.useRef();
 
-  // function handlePlace(e) {
-    // setPlace(e.target.value);
-  // }
-
-  // function placeChanged(e) {
-    // console.log(e);
-    // dispatch(changeRadiusLocationSearch(place))
-  // }
-
-  // React.useEffect(() => {
-  //   dispatch(changeRadiusLocationSearch(place));
-  // }, [place]);
-
-  // console.log(place)
-
-  let inputRef=React.useRef()
-
-  function placeChanged(){
-      dispatch(changeRadiusLocationSearch(inputRef?.current?.value))
+  function placeChanged() {
+    dispatch(changeRadiusLocationSearch(inputRef?.current?.value));
   }
 
-  
-
   return (
-    <div className="headersMainJobs">
-      <ToastContainer />
+    <div className="headersMainJobs headersMainJobsBigMain">
+
+
       <div className="lastDateAndCard">
-        <p>
-          last run finished:<span className="lastDate">{lastDate}</span>
-        </p>
         <Card className="jobsHeaderCard">
           <Autocomplete onPlaceChanged={placeChanged}>
             <input
-            ref={inputRef}
+              ref={inputRef}
               placeholder="Location"
               className="headerLocationSearch commomTextFields"
               value={radiusLocationSearch}
@@ -179,12 +159,45 @@ const GridHeader = () => {
             <button
               className={`clear ${loading ? "disabledBtn" : ""}`}
               onClick={clearLocationRadius}
-            >
+              >
               Clear
             </button>
           </div>
         </Card>
       </div>
+
+      {/*  */}
+      <div className="jobsRightSide">
+        <p>
+          last run finished:<span className="lastDate">{lastDate}</span>
+        </p>
+        <button
+          onClick={(e) => exportToCSV(withOutFilterData)}
+          className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
+          >
+          Download Jobs
+        </button>
+        <div className="headersIcons">
+          <input
+            name="copy-button"
+            aria-label="copy-button"
+            value={search}
+            style={{ height: "5px" }}
+            onChange={(e) => dispatch(handleSearch({ search: e.target.value }))}
+            placeholder="Search Globally..."
+            className="headerTextField commomTextFields"
+            />
+        </div>
+        <button
+          onClick={urlApi}
+          className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
+          >
+          Run Crawler
+        </button>
+      </div>
+
+            <ToastContainer />
+      {/*  */}
       {/* <div style={{ display: "flex", gap: "30px", alignItems: "center" }}> */}
       {/* This is Prop Starts */}
       <Dialog
@@ -209,30 +222,7 @@ const GridHeader = () => {
         </DialogActions>
       </Dialog>
       {/* This is Prop Ends */}
-      <button
-        onClick={(e) => exportToCSV(withOutFilterData)}
-        className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
-      >
-        Download Jobs
-      </button>
       {/* </div> */}
-      <div className="headersIcons">
-        <input
-          name="copy-button"
-          aria-label="copy-button"
-          value={search}
-          style={{ height: "5px" }}
-          onChange={(e) => dispatch(handleSearch({ search: e.target.value }))}
-          placeholder="Search Globally..."
-          className="headerTextField commomTextFields"
-        />
-      </div>
-      <button
-        onClick={urlApi}
-        className={`greenBtn jobsBtns ${loading ? "disabledBtn" : ""}`}
-      >
-        Run Crawler
-      </button>
     </div>
   );
 };

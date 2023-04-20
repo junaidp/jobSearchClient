@@ -420,3 +420,36 @@ input {
   cursor: pointer;
   color: #ffffff;
 }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.chip {
+  display: flex;
+  gap: 10px;
+  background: #f2b7b7;
+  color: white;
+  padding: 7px;
+  border-radius: 7px;
+  cursor: pointer;
+  border: 2px solid #dd8989;
+  box-shadow: 2px 3px 2px aliceblue;
+}
+
+
+.statsHeaderMain{
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (max-width:800px) {
+  .statsHeaderMain{
+    flex-direction: column;
+  }
+  .statsTextField{
+    margin-top: 10px;
+  }
+}

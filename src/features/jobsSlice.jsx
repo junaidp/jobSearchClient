@@ -60,7 +60,7 @@ const jobsSlice = createSlice({
     setData: (state, action) => {
       state.data = action.payload.data;
       state.withOutFilterData = action.payload.data;
-      state.withOutFilterDataLocationRadius = [];
+      (state.withOutFilterDataLocationRadius = []),
         (state.totalPages = Math.ceil(
           action.payload.data.length / state.selectPage
         ));
@@ -251,17 +251,17 @@ const jobsSlice = createSlice({
       state.radiusLocationSearch = "";
     },
     clearBtnFunctions: (state, action) => {
-      state.initialJobsResult = true;
-        state.search = "";
-        state.locationFilter = "";
-        state.nameFilter = "";
-        state.titleFilter = "";
-      state.jobTypeFilter = "";
-        state.paginationPage = 1;
-        state.withOutFilterDataLocationRadius = [];
+      (state.initialJobsResult = true),
+        (state.search = ""),
+        (state.locationFilter = ""),
+        (state.nameFilter = ""),
+        (state.titleFilter = "");
+      (state.jobTypeFilter = ""),
+        (state.paginationPage = 1),
+        (state.withOutFilterDataLocationRadius = []),
         state.alertText = `Removing the results for the location+radius`;
-        state.selectPage = 30;
-        state.data = action.payload.data;
+        (state.selectPage = 30);
+        (state.data = action.payload.data);
       state.withOutFilterData = action.payload.data;
       state.totalPages = Math.ceil(
         action.payload.data.length / state.selectPage
@@ -274,18 +274,18 @@ const jobsSlice = createSlice({
 
       if (action.payload.data && action.payload.data !== "") {
         state.initialJobsResult = false;
-        state.paginationPage = 1;
-          state.selectPage = 30;
+        (state.paginationPage = 1),
+          (state.selectPage = 30),
           state.alertText = `Showing Result For ${state.radiusLocationSearch} in ${state.radius}km Radius `;
-          state.data = action.payload.data;
+          (state.data = action.payload.data)
         state.withOutFilterDataLocationRadius = action.payload.data;
         state.totalPages = Math.ceil(
           action.payload.data.length / state.selectPage
         );
-        state.search = "";
-          state.locationFilter = "";
-          state.nameFilter = "";
-          state.titleFilter = "";
+        (state.search = ""),
+          (state.locationFilter = ""),
+          (state.nameFilter = ""),
+          (state.titleFilter = "");
         state.jobTypeFilter = "";
       }
     },

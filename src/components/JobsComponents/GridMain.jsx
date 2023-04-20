@@ -119,7 +119,7 @@ const UpcomingItemsTable = () => {
         <Table aria-label="caption table" className="UpcomingItemsTable">
           <TableHead>
             <TableRow>
-              <TableCell className="headerHeading">
+              <TableCell className="headerHeading headerHeadingId">
                 ID <img src={FilterImg} className="filterImg" />
               </TableCell>
 
@@ -203,14 +203,14 @@ const UpcomingItemsTable = () => {
                 </div>
               </TableCell>
 
-              <TableCell className="headerHeading">
+              <TableCell className="headerHeading headerHeadingUrl">
                 Url <img src={FilterImg} className="filterImg" />
               </TableCell>
               <TableCell
                 onClick={() => dispatch(handleDateSort())}
-                className="headerHeading"
+                className="headerHeading headerHeadingFirstFound"
               >
-                First Found <img src={FilterImg} className="filterImg" />
+               First Found    <img src={FilterImg} className="filterImg" />
               </TableCell>
             </TableRow>
           </TableHead>
@@ -226,7 +226,7 @@ const UpcomingItemsTable = () => {
                 paginationPage * selectPage
               )
               .map((item, index) => (
-                <TableRow>
+                <TableRow key={index}>
                   <TableCell component="th" scope="row">
                     {item?.id}
                   </TableCell>
